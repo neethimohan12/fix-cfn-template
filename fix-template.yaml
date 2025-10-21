@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Description: >
   Sample CloudFormation template with intentional errors
   for students to troubleshoot EC2 provisioning.
@@ -22,8 +22,18 @@ Parameters:
 
   AMIId:
     Type: AWS::EC2::Image::Id
-    Default: ami-12345
+    Default: "ami-03814457ed908d8f6"
     Description: The AMI ID to use.
+
+  VpcId:
+    Type: String
+    Description: Enter your VPC ID
+    Default: "vpc-0687b2d5a2544ed6f"
+
+  keypair:
+    Type: String
+    Description: Enter your keypair
+    Default: "docker-ssh-key"
 
 Resources:
   EC2Instance:
@@ -31,6 +41,10 @@ Resources:
     Properties:
       InstanceType: !Ref InstanceType
       ImageId: !Ref AMIId
+      "KeyName": !Ref keypair
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: 0
       Tags:
         - Key: Name
           Value: !Sub "${EnvironmentName}-instance"
@@ -39,14 +53,25 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow SSH access
-      VpcId: vpc-0abcd1234efgh5678
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 300.0.0.0/0
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
 
 Outputs:
   InstanceId:
     Description: The ID of the EC2 instance
     Value: !Ref EC2Instance
+
+  PublicIP:
+    Description: The public IP address of the EC2 instance
+    Value: !GetAtt EC2Instance.PublicIp
