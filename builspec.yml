@@ -7,7 +7,7 @@ env:
     PARAMETERS: |
       ParameterKey=AMIId,ParameterValue=ami-03814457ed908d8f6
       ParameterKey=VpcId,ParameterValue=vpc-04be16fe752e33982
-      ParameterKey=eypair,ParameterValue=awscadec2kp
+      ParameterKey=keypair,ParameterValue=awscadec2kp
       ParameterKey=EnvironmentName,ParameterValue=dev
       ParameterKey=InstanceType,ParameterValue=t2.micro
 
