@@ -28,12 +28,12 @@ Parameters:
   VpcId:
     Type: String
     Description: Enter your VPC ID
-    Default: "vpc-0687b2d5a2544ed6f"
+    Default: "vpc-04be16fe752e33982"
 
   keypair:
     Type: String
     Description: Enter your keypair
-    Default: "docker-ssh-key"
+    Default: "awscadec2kp"
 
 Resources:
   EC2Instance:
