@@ -22,7 +22,7 @@ Parameters:
 
   AMIId:
     Type: AWS::EC2::Image::Id
-    Default: "ami-03814457ed908d8f6"
+    Default: "ami-0f3c8a41d58224188
     Description: The AMI ID to use.
 
   VpcId:
